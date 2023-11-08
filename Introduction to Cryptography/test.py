@@ -1,8 +1,10 @@
 from pwn import xor
 
-ciphertext = "5d41402abc4b2a76b9719d911017c592"
-key = "secret"
+st = "73626960647f6b206821204f21254f7d694f7624662065622127234f726927756d"
+flag = bytes.fromhex(st)
 
-print(bytes.fromhex(ciphertext))
-xored = xor(bytes.fromhex(ciphertext), key.encode())
-print(xored)
+for singbyte in range(256):
+    possible_flag = xor(singbyte, flag)
+    if possible_flag[0:6] == b'crypto':
+        print(True)
+        break
