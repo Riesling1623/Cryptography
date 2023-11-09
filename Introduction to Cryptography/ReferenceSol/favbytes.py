@@ -6,4 +6,5 @@ input_str = bytes.fromhex('73626960647f6b206821204f21254f7d694f76246620656221272
 # After that, he run through the input string, xor each letters in input_str with key (as above, the first letter is always 'c')
 
 key = input_str[0] ^ ord('c')
+print(key)
 print(''.join(chr(c ^ key) for c in input_str))

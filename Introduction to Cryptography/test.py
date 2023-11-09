@@ -1,10 +1,5 @@
 from pwn import xor
 
-st = "73626960647f6b206821204f21254f7d694f7624662065622127234f726927756d"
-flag = bytes.fromhex(st)
-
-for singbyte in range(256):
-    possible_flag = xor(singbyte, flag)
-    if possible_flag[0:6] == b'crypto':
-        print(True)
-        break
+input_str = bytes.fromhex("0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104")
+print(input_str)
+print(xor(input_str[7], 'y'.encode()))
