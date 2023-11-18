@@ -6,4 +6,4 @@ def egcd(a, b):
         return gcd, y - (b // a) * x, x
 
 
-print(egcd(15, 26))
+print(egcd(5, 12))
