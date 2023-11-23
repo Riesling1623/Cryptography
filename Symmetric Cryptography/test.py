@@ -1,5 +1,12 @@
-from pwn import xor
-a = [206, 243]
-b = [173, 129]
-res = [ xor(a[i],b[i]).decode() for i in range(len(a)) ]
-print("".join(res))
+state = [
+    [251, 64, 182, 81],
+    [146, 168, 33, 80],
+    [199, 159, 195, 24],
+    [64, 80, 182, 255],
+]
+
+flt_state = [item for row in state for item in row]
+print(flt_state)
+
+h = 0x10
+print(int(h))
