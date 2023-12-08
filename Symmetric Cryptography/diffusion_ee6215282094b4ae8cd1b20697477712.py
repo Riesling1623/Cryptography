@@ -52,5 +52,7 @@ state = [
 inv_mix_columns(state)
 inv_shift_rows(state)
 
+print(state)
+
 res_lst = [chr(item) for row in state for item in row]
 print("".join(res_lst))

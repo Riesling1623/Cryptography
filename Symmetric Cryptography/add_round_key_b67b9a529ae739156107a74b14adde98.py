@@ -29,7 +29,8 @@ def add_round_key(s, k):
     s = matrixflatten(s)
     k = matrixflatten(k)
     res = "".join([ xor(s[i], k[i]).decode() for i in range(len(s)) ])
-    return res
+    tmp = [xor(s[i], k[i]) for i in range(len(s))]
+    return tmp
 
 
 

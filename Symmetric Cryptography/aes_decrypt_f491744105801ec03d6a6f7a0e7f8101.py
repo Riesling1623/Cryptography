@@ -83,8 +83,6 @@ def inv_shift_rows(s):
     s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3]
 
 def add_round_key(s, k):
-    # s = matrixflatten(s)
-    # k = matrixflatten(k)
     res = [xor(s[i], k[i]) for i in range(len(s))]
     return [list(res[i]) for i in range(0, len(res), 1)]
 
@@ -137,42 +135,31 @@ def expand_key(master_key):
     return [key_columns[4*i : 4*(i+1)] for i in range(len(key_columns) // 4)]
 
 
+def decrypt(key, ciphertext):
+    round_keys = expand_key(key) # Remember to start from the last round key and work backwards through them when decrypting
 
-round_keys = expand_key(key) # Remember to start from the last round key and work backwards through them when decrypting
-# print(round_keys)
+    # Convert ciphertext to state matrix
+    cipher_matrix = bytes2matrix(ciphertext)
 
-# Convert ciphertext to state matrix
-cipher_matrix = bytes2matrix(ciphertext)
-# print(cipher_matrix)
+    # Initial add round key step
+    c = add_round_key(cipher_matrix, round_keys[10])
 
-# Initial add round key step
-c = add_round_key(cipher_matrix, round_keys[10])
+    for i in range(N_ROUNDS - 1, 0, -1):
+        inv_shift_rows(c)
+        c = sub_bytes(c, sbox=inv_s_box)
+        c = add_round_key(c, round_keys[i])
+        inv_mix_columns(c)
 
-inv_shift_rows(c)
-c = sub_bytes(c, sbox=inv_s_box)
-c = add_round_key(c, round_keys[9])
-print(c)
-inv_mix_columns(c)
-print(c)
+    # Run final round (skips the InvMixColumns step)
+    inv_shift_rows(c)
+    c = sub_bytes(c, sbox=inv_s_box)
+    c = add_round_key(c, round_keys[0])
 
-inv_shift_rows(c)
-print(c)
-
-# for i in range(N_ROUNDS - 1, 0, -1):
-#     inv_shift_rows(c)
-#     c = sub_bytes(c, sbox=inv_s_box)
-#     c = add_round_key(c, round_keys[i])
-#     inv_mix_columns(c)
-
-# # # Run final round (skips the InvMixColumns step)
-# # inv_shift_rows(c)
-# # c = sub_bytes(c, sbox=inv_s_box)
-# # c = add_round_key(c, round_keys[0])
-
-# # # Convert state matrix to plaintext
-# # plaintext = c
-
-# # return plaintext
+    # Convert state matrix to plaintext
+    plaintext = "".join([chr(item) for row in c for item in row])
 
 
-# # print(decrypt(key, ciphertext))
+    return plaintext
+
+
+print(decrypt(key, ciphertext))

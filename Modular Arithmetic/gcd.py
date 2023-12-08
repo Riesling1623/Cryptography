@@ -5,6 +5,6 @@ def gcd(a, b):
         return gcd(b, a%b)
 
 if __name__ == "__main__":
-    a = 26513
-    b = 32321
+    a = 17
+    b = 1515
     print(gcd(a,b))
