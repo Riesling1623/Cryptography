@@ -1,1 +1,3 @@
-d = inverse(e, phi_n)
+t(d)
+pt = pow(ct, d, n)
+print(long_to_bytes(pt))
