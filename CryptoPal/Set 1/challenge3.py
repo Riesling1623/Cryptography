@@ -1,6 +1,6 @@
 """
     CryptoPal - Set 1
-    Challenge 3 - Single-byte XOR cipher Solution
+    Challenge 3 - Single-byte XOR cipher Solution using Brute Force
 """
 
 from pwn import xor
@@ -11,4 +11,4 @@ bs = bytes.fromhex(hex_string)
 
 for key in string.ascii_letters:
     bkey = bytes(key, 'utf-8')
-    print(xor(bs, bkey))
+    print(xor(bs, bkey).decode('utf-8'))

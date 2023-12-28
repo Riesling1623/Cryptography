@@ -6,6 +6,7 @@
 from pwn import xor
 
 def xorCombine(s1, s2):
+    # return xor(s1, s2)
     return xor(s1, s2).hex()
 
 if __name__ == "__main__":
