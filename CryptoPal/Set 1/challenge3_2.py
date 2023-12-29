@@ -97,4 +97,6 @@ if __name__ == '__main__':
     res = find_single_byte_xor(bytestring)
     print(res)
 
+    # done
+
 # Reference for this solution: https://github.com/Lukasa/cryptopals/blob/master/cryptopals/challenge_one/three.py
