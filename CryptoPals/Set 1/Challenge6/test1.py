@@ -11,7 +11,7 @@ def check_printable(byteval):
 def convert_to_binary(b):
     return "".join("{:08b}".format(x) for x in b)
 
-with open("./CryptoPal/Set 1/6.txt") as file:
+with open("./CryptoPals/Set 1/6.txt") as file:
     ciphertext = file.read()
 # print(b64decode(ciphertext))
 ciphertext = b64decode(ciphertext)

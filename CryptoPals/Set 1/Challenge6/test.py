@@ -1,7 +1,7 @@
 from pwn import xor
 from base64 import b64decode
 
-with open('./CryptoPal/Set 1/6.txt') as file:
+with open('./CryptoPals/Set 1/6.txt') as file:
     ciphertext = file.read()
 ciphertext = b64decode(ciphertext)
 # print(ciphertext)

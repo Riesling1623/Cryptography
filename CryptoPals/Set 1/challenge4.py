@@ -48,7 +48,7 @@ if isinstance(b'a'[0], int):
 
 if __name__ == '__main__':
     res_lst = []
-    with open('CryptoPal/Set 1/4.txt', 'r') as file:
+    with open('CryptoPals/Set 1/4.txt', 'r') as file:
         for hex_line in file:
             bytestring = bytes.fromhex(hex_line)
 
