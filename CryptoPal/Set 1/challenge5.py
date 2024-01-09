@@ -10,6 +10,7 @@ bytekey = bytes(KEY, 'utf-8')
 
 with open('CryptoPal/Set 1/5.txt', 'r') as file:
     contents = file.read()
+    print(len(contents))
     bytecontents = bytes(contents, 'utf-8')
     # print(bytecontents)
     encrypted_string = xor(bytecontents, bytekey)
