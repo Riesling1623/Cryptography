@@ -172,6 +172,7 @@ if __name__ == "__main__":
     
     KEY = "YELLOW SUBMARINE"
     byte_key = bytes(KEY, 'utf-8')
+    # AES in ECB mode: Just divide the ciphertext into 16-byte blocks and use AES to decrypt each block with the key
     block_contents = [ byte_content[len(byte_key)*i:len(byte_key)*(i+1)] for i in range(int(len(byte_content)/len(byte_key))) ]
 
     block_decrypted_contents = [ decrypt(byte_key, block) for block in block_contents ]
