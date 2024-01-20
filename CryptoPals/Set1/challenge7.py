@@ -166,7 +166,7 @@ if __name__ == "__main__":
     # key        = b'\xc3,\\\xa6\xb5\x80^\x0c\xdb\x8d\xa5z*\xb6\xfe\\'
     # ciphertext = b'\xd1O\x14j\xa4+O\xb6\xa1\xc4\x08B)\x8f\x12\xdd'  
     
-    with open("./CryptoPals/Set 1/7.txt") as file:
+    with open("./CryptoPals/Set1/7.txt") as file:
         CONTENT = file.read()
     byte_content = b64decode(CONTENT)
     
@@ -175,7 +175,8 @@ if __name__ == "__main__":
     # AES in ECB mode: Just divide the ciphertext into 16-byte blocks and use AES to decrypt each block with the key
     block_contents = [ byte_content[len(byte_key)*i:len(byte_key)*(i+1)] for i in range(int(len(byte_content)/len(byte_key))) ]
 
-    block_decrypted_contents = [ decrypt(byte_key, block) for block in block_contents ]
-    plaintext = "".join(block_decrypted_contents)
+    block_decrypted_contents = [ bytes(decrypt(byte_key, block), 'ascii') for block in block_contents ]
+    # plaintext = "".join(block_decrypted_contents)
 
-    print(plaintext)
+    for i in block_decrypted_contents:
+        print(len(i), end = ' ')

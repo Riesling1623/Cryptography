@@ -5,7 +5,7 @@
 
 line_num = 1
 
-with open("CryptoPals/Set 1/8.txt", 'r') as file:
+with open("CryptoPals/Set1/8.txt", 'r') as file:
     for line in file:
         content_line = line[:len(line)-1]   # ignore the \n when read the text file
         blocks_content_line = [ content_line[(16*i):(16*(i+1))] for i in range(int(len(content_line)/16)) ]

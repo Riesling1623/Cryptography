@@ -8,7 +8,7 @@ from pwn import xor
 KEY = "ICE"
 bytekey = bytes(KEY, 'utf-8')
 
-with open('CryptoPals/Set 1/5.txt', 'r') as file:
+with open('CryptoPals/Set1/5.txt', 'r') as file:
     contents = file.read()
     print(len(contents))
     bytecontents = bytes(contents, 'utf-8')
