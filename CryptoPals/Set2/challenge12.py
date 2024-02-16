@@ -1,6 +1,8 @@
 """
     CryptoPals - Set 2
     Challenge 12: Byte-at-a-time ECB decryption (Easy)
+
+    !! Vague
 """
 
 from itertools import count
@@ -61,16 +63,7 @@ def guess_byte(prefix: bytes, target: bytes, oracle: ECBOracleType) -> bytes:
             return b
     raise Exception("oh no!")
 
-if __name__ == "__main__":
-    oracle = make_oracle()
-
-    # step 1: determine the size of unknown data fields
-    block_size, postfix_len = find_block_size_and_postfix_length(oracle)
-    print(f"{block_size=}")
-    print(f"{postfix_len=}")
-    print()
-    assert block_size == AES.block_size
-
+def main(oracle: ECBOracleType, postfix_len: int, fancy = False) -> bytes:
     # step 2: detect that the oracle uses ECB
     assert detect_ecb(oracle)
 
@@ -87,9 +80,22 @@ if __name__ == "__main__":
     pt = bytes(15)
     for block in blocks_to_attack:
         pt += guess_byte(pt[-15:], block, oracle)
-        print(pt[15:])
-        sleep(0.1)
-    pt = pt[15:]
+        if fancy:
+            print(pt[15:])
+            sleep(0.1)
+    return pt[15:]
+
+if __name__ == "__main__":
+    oracle = make_oracle()
+
+    # step 1: determine the size of unknown data fields
+    block_size, postfix_len = find_block_size_and_postfix_length(oracle)
+    print(f"{block_size=}")
+    print(f"{postfix_len=}")
+    print()
+    assert block_size == AES.block_size
+
+    pt = main(oracle, postfix_len)
 
     print("\nDone!")
     print("Contents of 'unknown-string':\n")
