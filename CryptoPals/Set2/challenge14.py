@@ -50,3 +50,5 @@ if __name__ == "__main__":
     print("\nDone!")
     print("Contents of 'unknown-string':\n")
     print(pt.decode("ascii"))
+
+# Reference: https://www.youtube.com/watch?v=nmgaWMa5YrM&list=PLWvDpnCcem1P6i8pZm2x7KHp5iaxwrK_P&index=14
