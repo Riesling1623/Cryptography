@@ -14,15 +14,15 @@ from ..Func.bytes_to_chunks import bytes_to_chunks
 _key = b"YELLOW SUBMARINE"
 BLOCK_SIZE = AES.block_size
 
-def aes_ctr_decrypt(ct, nonce, counter):
+def aes_ctr_transform(data: bytes, key: bytes, nonce = 0, counter = 0):
     res = b""
     # little endian
-    chunks = bytes_to_chunks(ct, BLOCK_SIZE)
+    chunks = bytes_to_chunks(data, BLOCK_SIZE)
     nonce = struct.pack("<Q", nonce)
     counter_byte = struct.pack("<Q", counter)
     counter_block = nonce + counter_byte
 
-    cipher = AES.new(_key, AES.MODE_ECB)
+    cipher = AES.new(key, AES.MODE_ECB)
 
     for chunk in chunks:
         keystream = cipher.encrypt(counter_block)
@@ -38,5 +38,5 @@ if __name__ == "__main__":
     )
     nonce = 0
     counter = 0
-    res = aes_ctr_decrypt(ct, nonce, counter)
+    res = aes_ctr_transform(ct, _key, nonce, counter)
     print(res)

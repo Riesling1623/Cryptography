@@ -1,35 +1,25 @@
-import struct
+# challenge 20
 
-from base64 import b64decode
+from .challenge18 import aes_ctr_transform
+from ..Func.some_func import attack_single_byte_xor
 from Crypto.Cipher import AES
-from pwn import xor
-
-from ..Func.bytes_to_chunks import bytes_to_chunks
-
-key = b"YELLOW SUBMARINE"
-
-def aes_ctr_decrypt(ct, counter):
-    cipher = AES.new(key, AES.MODE_ECB)
-    keystream = cipher.encrypt(counter)
-    return xor(ct, keystream) 
+from os import urandom
+from base64 import b64decode
 
 BLOCK_SIZE = AES.block_size
-s = "L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ=="
-bct = b64decode(s)
-chunks = bytes_to_chunks(bct, BLOCK_SIZE)
+KEY_SIZE = 32
+_key = urandom(KEY_SIZE)
+nonce = 0
 
-nonce = struct.pack("<Q", 0)
-counter = 0
-# byte_counter = struct.pack("<Q", 0)
-# counter_block = nonce + byte_counter
+with open("./CryptoPals/Set3/20.txt") as f:
+    data = [b64decode(line) for line in f]
 
-# print(aes_ctr_decrypt(chunks[0], counter_block))
-res_lst = []
-for chunk in chunks:
-    counter = chunks.index(chunk)
-    byte_counter = struct.pack("<Q", counter)
-    counter_block = nonce + byte_counter
+# print(data)
 
-    res_lst.append(aes_ctr_decrypt(chunk, counter_block)[:len(chunk)])
+# encrypt
+ctxts = [aes_ctr_transform(ele, _key) for ele in data]
+# print(ctxts)
 
-print(res_lst)
+cols = [attack_single_byte_xor(l)['message'] for l in zip(*ctxts)]
+for pt in zip(*cols):
+    print(bytes(pt).decode())
